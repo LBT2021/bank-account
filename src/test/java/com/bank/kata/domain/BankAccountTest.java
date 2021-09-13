@@ -3,6 +3,8 @@ package com.bank.kata.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Clock;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -14,7 +16,7 @@ public class BankAccountTest {
 
     @BeforeEach
     void init() {
-        account = new BankAccount();
+        account = new BankAccount(Clock.systemDefaultZone());
     }
 
     @Test
