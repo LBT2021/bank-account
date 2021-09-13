@@ -31,7 +31,7 @@ public class Statement {
      * @param statementPrinter
      */
     public void print(StatementPrinter statementPrinter) {
-        throw new UnsupportedOperationException("The print operation is not implemented yet.");
+        transactions.stream().forEach(statementPrinter::print);
     }
 
     /**
