@@ -45,7 +45,7 @@ public class BankAccount {
      * @param statementPrinter
      */
     public void printStatement(StatementPrinter statementPrinter) {
-        throw new UnsupportedOperationException("The print statement is not implemented yet.");
+        statement.print(statementPrinter);
     }
 
     /**
