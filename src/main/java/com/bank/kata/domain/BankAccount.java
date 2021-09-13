@@ -34,6 +34,7 @@ public class BankAccount {
      */
     public void withdraw(double amount) {
         updateBalanceWithdrawalOperation(amount);
+        updateTransactionHistory(TransactionType.WITHDRAWAL, clock.instant(), amount, balance);
     }
 
     /**
