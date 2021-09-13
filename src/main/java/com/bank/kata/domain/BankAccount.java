@@ -13,7 +13,7 @@ public class BankAccount {
      * @param amount
      */
     public void deposit(double amount) {
-        throw new UnsupportedOperationException("The deposit operation is not implemented yet.");
+        updateBalanceDepositOperation(amount);
     }
 
     /**
@@ -21,5 +21,12 @@ public class BankAccount {
      */
     public double getBalance() {
         return this.balance;
+    }
+
+    /**
+     * @param amount
+     */
+    private void updateBalanceDepositOperation(double amount) {
+        balance += Math.abs(amount);
     }
 }
