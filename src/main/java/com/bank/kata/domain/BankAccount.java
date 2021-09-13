@@ -33,7 +33,7 @@ public class BankAccount {
      * @param amount
      */
     public void withdraw(double amount) {
-        throw new UnsupportedOperationException("The withdrawal operation is not implemented yet.");
+        updateBalanceWithdrawalOperation(amount);
     }
 
     /**
@@ -48,6 +48,17 @@ public class BankAccount {
      */
     private void updateBalanceDepositOperation(double amount) {
         balance += Math.abs(amount);
+    }
+
+    /**
+     * @param amount
+     */
+    private void updateBalanceWithdrawalOperation(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+        } else {
+            throw new IllegalArgumentException("Transaction cancelled due to insufficient funds.");
+        }
     }
 
     /**
