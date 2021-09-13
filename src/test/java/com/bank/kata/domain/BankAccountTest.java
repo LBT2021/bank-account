@@ -1,20 +1,35 @@
 package com.bank.kata.domain;
 
+import com.bank.kata.domain.port.StatementPrinter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Clock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 
 /**
  * @author lila.becha
  */
+@ExtendWith(MockitoExtension.class)
 public class BankAccountTest {
 
     private BankAccount account;
+
+    @Mock
+    private StatementPrinter statementPrinter;
+
+    @Captor
+    private ArgumentCaptor<Transaction> transactionArgumentCaptur;
 
     @BeforeEach
     void init() {
@@ -72,5 +87,33 @@ public class BankAccountTest {
         String expectedMessage = "Transaction cancelled";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void should_not_print_anything_when_no_transaction_found() {
+        account.printStatement(statementPrinter);
+        Mockito.verify(statementPrinter, never()).print(ArgumentMatchers.any(Transaction.class));
+    }
+
+    @Test
+    public void should_print_one_deposit_transaction() {
+        account.deposit(130);
+        account.printStatement(statementPrinter);
+        Mockito.verify(statementPrinter, times(1)).print(transactionArgumentCaptur.capture());
+
+        final Transaction transaction = transactionArgumentCaptur.getValue();
+        assertNotNull(transaction);
+        assertEquals(TransactionType.DEPOSIT, transaction.transactionType());
+        assertNotNull(transaction.transactionDate());
+        assertEquals(130, transaction.amount());
+        assertEquals(130, transaction.balance());
+    }
+
+    @Test
+    public void should_print_two_transactions() {
+        account.deposit(15000);
+        account.withdraw(6000);
+        account.printStatement(statementPrinter);
+        Mockito.verify(statementPrinter, times(2)).print(ArgumentMatchers.any(Transaction.class));
     }
 }

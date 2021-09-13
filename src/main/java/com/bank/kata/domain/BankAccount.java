@@ -1,5 +1,7 @@
 package com.bank.kata.domain;
 
+import com.bank.kata.domain.port.StatementPrinter;
+
 import java.time.Clock;
 import java.time.Instant;
 
@@ -35,6 +37,15 @@ public class BankAccount {
     public void withdraw(double amount) {
         updateBalanceWithdrawalOperation(amount);
         updateTransactionHistory(TransactionType.WITHDRAWAL, clock.instant(), amount, balance);
+    }
+
+    /**
+     * print statement.
+     *
+     * @param statementPrinter
+     */
+    public void printStatement(StatementPrinter statementPrinter) {
+        throw new UnsupportedOperationException("The print statement is not implemented yet.");
     }
 
     /**
