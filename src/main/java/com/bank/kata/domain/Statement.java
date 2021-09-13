@@ -1,5 +1,7 @@
 package com.bank.kata.domain;
 
+import com.bank.kata.domain.port.StatementPrinter;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +26,19 @@ public class Statement {
     }
 
     /**
+     * print the history of transactions.
+     *
+     * @param statementPrinter
+     */
+    public void print(StatementPrinter statementPrinter) {
+        throw new UnsupportedOperationException("The print operation is not implemented yet.");
+    }
+
+    /**
      * @return transactions list.
      */
     public List<Transaction> getTransactions() {
         return this.transactions;
     }
+
 }
