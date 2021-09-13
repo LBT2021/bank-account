@@ -20,7 +20,7 @@ public class Statement {
      * @param balance
      */
     public void addTransaction(TransactionType transactionType, Instant transactionDate, double amount, double balance) {
-        throw new UnsupportedOperationException("The add transaction is not implemented yet.");
+        transactions.add(new Transaction(transactionType, transactionDate, amount, balance));
     }
 
     /**
