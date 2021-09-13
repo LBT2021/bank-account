@@ -28,6 +28,15 @@ public class BankAccount {
     }
 
     /**
+     * withdraw operation.
+     *
+     * @param amount
+     */
+    public void withdraw(double amount) {
+        throw new UnsupportedOperationException("The withdrawal operation is not implemented yet.");
+    }
+
+    /**
      * @return the account balance.
      */
     public double getBalance() {
@@ -50,4 +59,5 @@ public class BankAccount {
     private void updateTransactionHistory(TransactionType transactionType, Instant transactionDate, double amount, double balance) {
         statement.addTransaction(transactionType, transactionDate, amount, balance);
     }
+
 }
